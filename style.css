@@ -1,0 +1,19 @@
+.container {
+    display: grid;
+    grid-template-columns: 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px;
+    height: 50px;
+    width: 50px;
+}
+
+.box {
+    border: 1px solid black;
+}
+
+#turn_display{
+    width: 100px;
+    height: 50px;
+    background-color: azure;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
