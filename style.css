@@ -8,6 +8,16 @@
 
 .box {
     border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#winner{
+    border: 1px solid black;
+    height: 50px;
+    width: 150px;
+    margin-bottom: 10px;
 }
 
 #turn_display{
