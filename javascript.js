@@ -1,7 +1,5 @@
 
-// also how you'd keep them from being clicked again, use that value being turned
-// allow players to put in their names and return as winner instead of player one and player two
-// clear player winning with reset
+
 // convert the entire thing into "factories" etc following the lesson
 
 // 
@@ -47,7 +45,10 @@ function resetButton() {
     resetButton.addEventListener("click", () => {
         playerOneNums.length = 0;
         playerTwoNums.length = 0;
-        gameBoard.forEach(value => value.clicked = false)
+        gameBoard.forEach(value => value.clicked = false);
+        gameBoard.forEach(value => value.chosenBy = false);
+        const displayWinner = document.getElementById("winner");
+        displayWinner.textContent = "";
         clearBoxes.forEach(box => { box.textContent = "" })
         resetButton.remove();
 
