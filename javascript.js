@@ -1,4 +1,4 @@
-// tie would be all are "clicked" and no winning combos
+
 // also how you'd keep them from being clicked again, use that value being turned
 // allow players to put in their names and return as winner instead of player one and player two
 // clear player winning with reset
@@ -47,6 +47,7 @@ function resetButton() {
     resetButton.addEventListener("click", () => {
         playerOneNums.length = 0;
         playerTwoNums.length = 0;
+        gameBoard.forEach(value => value.clicked = false)
         clearBoxes.forEach(box => { box.textContent = "" })
         resetButton.remove();
 
@@ -55,7 +56,9 @@ function resetButton() {
 
 }
 
+
 function turn(playerSelection) {
+    if (gameBoard[playerSelection].clicked == false){
     let index = gameBoard.findIndex(item => item.position === playerSelection);
     (gameBoard[index].state = "clicked");
     (gameBoard[index].clicked = true)
@@ -68,10 +71,10 @@ function turn(playerSelection) {
     }
     turnCounter++;
 }
+    
+}
 
 
-
-// if playerNum.length == 5 and don't include any of the winning numbers, resurn tie
 
 
 // ends the game by declaring winner or tie and spawns reset button
@@ -87,12 +90,6 @@ function endGame() {
         resetButton()
     } 
     tieGame()
-    // } else if (playerOneNums.length == 5 & ((answerArr.some(combo => combo.every(num => !playerOneNums.includes(num))))) & ((answerArr.some(combo => combo.every(num => !playerTwoNums.includes(num)))))){
-    //     const displayWinner = document.getElementById("winner");
-    //     displayWinner.textConent = "It's a tie!";
-    //     resetButton();
-    // }
-
 }
 
 function tieGame() {
