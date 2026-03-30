@@ -1,15 +1,22 @@
+// tie would be all are "clicked" and no winning combos
+// also how you'd keep them from being clicked again, use that value being turned
+// allow players to put in their names and return as winner instead of player one and player two
+// clear player winning with reset
+// convert the entire thing into "factories" etc following the lesson
+
+// 
 
 
 const gameBoard = [
-    { position: 0, state: "unclicked", chosenBy: "notYet" },
-    { position: 1, state: "unclicked", chosenBy: "notYet" },
-    { position: 2, state: "unclicked", chosenBy: "notYet" },
-    { position: 3, state: "unclicked", chosenBy: "notYet" },
-    { position: 4, state: "unclicked", chosenBy: "notYet" },
-    { position: 5, state: "unclicked", chosenBy: "notYet" },
-    { position: 6, state: "unclicked", chosenBy: "notYet" },
-    { position: 7, state: "unclicked", chosenBy: "notYet" },
-    { position: 8, state: "unclicked", chosenBy: "notYet" },
+    { position: 0, clicked: false, chosenBy: "notYet" },
+    { position: 1, clicked: false, chosenBy: "notYet" },
+    { position: 2, clicked: false, chosenBy: "notYet" },
+    { position: 3, clicked: false, chosenBy: "notYet" },
+    { position: 4, clicked: false, chosenBy: "notYet" },
+    { position: 5, clicked: false, chosenBy: "notYet" },
+    { position: 6, clicked: false, chosenBy: "notYet" },
+    { position: 7, clicked: false, chosenBy: "notYet" },
+    { position: 8, clicked: false, chosenBy: "notYet" },
 
 ];
 
@@ -51,6 +58,7 @@ function resetButton() {
 function turn(playerSelection) {
     let index = gameBoard.findIndex(item => item.position === playerSelection);
     (gameBoard[index].state = "clicked");
+    (gameBoard[index].clicked = true)
     if (turnCounter % 2 == 0) {
         (gameBoard[index].chosenBy = "PlayerOne");
         playerOneNums.push(playerSelection);
@@ -63,11 +71,12 @@ function turn(playerSelection) {
 
 
 
-const answerArr = [[0, 1, 2], [0, 3, 6], [1, 4, 7], [2, 5, 8], [3, 4, 5], [6, 7, 8], [0, 4, 8], [2, 4, 6]]
+// if playerNum.length == 5 and don't include any of the winning numbers, resurn tie
 
 
-
+// ends the game by declaring winner or tie and spawns reset button
 function endGame() {
+    const answerArr = [[0, 1, 2], [0, 3, 6], [1, 4, 7], [2, 5, 8], [3, 4, 5], [6, 7, 8], [0, 4, 8], [2, 4, 6]]
     if (answerArr.some(combo => combo.every(num => playerOneNums.includes(num)))) {
         const displayWinner = document.getElementById("winner");
         displayWinner.textContent = "Player One wins";
@@ -76,10 +85,25 @@ function endGame() {
         const displayWinner = document.getElementById("winner");
         displayWinner.textContent = "Player Two wins";
         resetButton()
+    } 
+    tieGame()
+    // } else if (playerOneNums.length == 5 & ((answerArr.some(combo => combo.every(num => !playerOneNums.includes(num))))) & ((answerArr.some(combo => combo.every(num => !playerTwoNums.includes(num)))))){
+    //     const displayWinner = document.getElementById("winner");
+    //     displayWinner.textConent = "It's a tie!";
+    //     resetButton();
+    // }
+
+}
+
+function tieGame() {
+    if (gameBoard.every(click => click.clicked == true)) {
+        const displayWinner = document.getElementById("winner");
+        displayWinner.textContent = "It's a tie";
+        resetButton();
     }
 }
 
-
+// clicked to update boxes with value
 function xOrO(value) {
     const box = document.getElementById(value);
     if (turnCounter % 2 == 0) {
@@ -90,12 +114,9 @@ function xOrO(value) {
 
 }
 
-
+// clicked to play a turn
 function playGame(value) {
     turn(value)
-    console.log(gameBoard)
-    console.log(playerOneNums)
-    console.log(playerTwoNums)
     endGame();
 
 }
